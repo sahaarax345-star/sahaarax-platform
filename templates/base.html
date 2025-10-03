@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}SahaaraX - Empowering Women & Children{% endblock %}</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- AOS Animation -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <!-- Heroicons for icons -->
+  <script src="https://unpkg.com/heroicons@2.0.18/24/outline/index.js" type="module"></script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+    .heading-font {
+      font-family: 'Playfair Display', serif;
+    }
+    .hero-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+    .hero-overlay {
+      background: linear-gradient(135deg, rgba(30, 66, 148, 0.85) 0%, rgba(8, 28, 78, 0.9) 100%);
+    }
+    .flip-card {
+      perspective: 1000px;
+    }
+    .flip-card-inner {
+      transition: transform 0.8s;
+      transform-style: preserve-3d;
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    .flip-card:hover .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+    .flip-card-front, .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+    .flip-card-back {
+      transform: rotateY(180deg);
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #1e4294 0%, #081c4e 100%);
+      transition: all 0.3s ease;
+    }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(30, 66, 148, 0.3);
+    }
+    .btn-outline-white {
+      transition: all 0.3s ease;
+    }
+    .btn-outline-white:hover {
+      background: white;
+      color: #1e4294 !important;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
+    }
+    .stat-card {
+      transition: all 0.3s ease;
+    }
+    .stat-card:hover {
+      transform: translateY(-10px);
+    }
+    .testimonial-card {
+      transition: all 0.3s ease;
+    }
+    .testimonial-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+    .nav-link {
+      position: relative;
+    }
+    .nav-link:after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -2px;
+      left: 0;
+      background-color: #1e4294;
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover:after {
+      width: 100%;
+    }
+    .section-title:after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(135deg, #1e4294 0%, #081c4e 100%);
+      margin: 15px auto 30px;
+      border-radius: 2px;
+    }
+    #back-to-top {
+      display: none;
+      transition: all 0.3s ease;
+    }
+    #back-to-top.show {
+      display: flex;
+    }
+
+    /* Responsive fixes */
+    @media (max-width: 768px) {
+      .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+
+      .hero-content {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .hero-buttons a {
+        width: 100%;
+        text-align: center;
+      }
+
+      .footer-columns {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .newsletter-form {
+        flex-direction: column;
+      }
+
+      .newsletter-form input {
+        margin-bottom: 1rem;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+      }
+
+      .footer-links {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .logo-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+      }
+
+      .nav-buttons {
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 100%;
+      }
+
+      .nav-buttons a {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+  {% block extra_css %}{% endblock %}
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased">
+  <!-- Navbar -->
+  <header class="bg-blue-900 shadow-md sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+
+      <!-- Logo + Brand -->
+      <a href="/" class="flex items-center group animate__animated animate__fadeIn animate__slow">
+        <div class="rounded-full border-4 border-white shadow-lg p-1 overflow-hidden
+                    transform transition-transform duration-300 group-hover:scale-110
+                    animate__animated animate__bounceIn bg-transparent">
+          <img
+            src="{{ url_for('static', filename='logo.jpg') }}"
+            alt="SahaaraX Logo"
+            class="h-12 w-12 rounded-full object-cover"
+            onerror="this.src='https://via.placeholder.com/48x48?text=Logo';"
+          >
+        </div>
+        <span class="ml-3 text-2xl font-bold text-white heading-font tracking-wide transition-all duration-300 group-hover:text-yellow-300">
+          Sahaara<span class="text-yellow-300 group-hover:text-white transition">X</span>
+        </span>
+      </a>
+
+      <!-- Desktop Menu -->
+      <nav class="hidden md:flex space-x-6 items-center">
+        <a href="/" class="text-white hover:text-blue-200 transition nav-link flex items-center">
+          <i class="fas fa-home"></i><span class="ml-1">Home</span>
+        </a>
+        <a href="/about" class="text-white hover:text-blue-200 transition nav-link flex items-center">
+          <i class="fas fa-info-circle"></i><span class="ml-1">About</span>
+        </a>
+        <a href="/services" class="text-white hover:text-blue-200 transition nav-link flex items-center">
+          <i class="fas fa-hands-holding-child"></i><span class="ml-1">Services</span>
+        </a>
+        <a href="/success-stories" class="text-white hover:text-blue-200 transition nav-link flex items-center">
+          <i class="fas fa-star"></i><span class="ml-1">Success Stories</span>
+        </a>
+        <a href="/contact" class="text-white hover:text-blue-200 transition nav-link flex items-center">
+          <i class="fas fa-envelope"></i><span class="ml-1">Contact</span>
+        </a>
+      </nav>
+
+      <!-- Desktop Buttons -->
+      <div class="hidden md:flex ml-4 space-x-4 nav-buttons">
+        <a href="/counseling_signin" class="text-white hover:text-blue-200 transition flex items-center">
+          <i class="fas fa-sign-in-alt mr-2"></i> Counselor Login
+        </a>
+        <a href="/user_signup" class="bg-white text-blue-800 hover:bg-blue-100 px-6 py-2 rounded-lg transition flex items-center font-medium">
+          <i class="fas fa-user-plus mr-2"></i> Register
+        </a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button class="md:hidden text-white focus:outline-none mobile-menu-button">
+        <i class="fas fa-bars text-2xl"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu hidden md:hidden bg-blue-700 py-2 px-4 shadow-lg">
+      <a href="/" class="block py-3 text-white hover:text-blue-200 transition flex items-center border-b border-blue-600">
+        <i class="fas fa-home mr-3 w-5 text-center"></i> Home
+      </a>
+      <a href="/about" class="block py-3 text-white hover:text-blue-200 transition flex items-center border-b border-blue-600">
+        <i class="fas fa-info-circle mr-3 w-5 text-center"></i> About
+      </a>
+      <a href="/services" class="block py-3 text-white hover:text-blue-200 transition flex items-center border-b border-blue-600">
+        <i class="fas fa-hands-holding-child mr-3 w-5 text-center"></i> Services
+      </a>
+      <a href="/success-stories" class="block py-3 text-white hover:text-blue-200 transition flex items-center border-b border-blue-600">
+        <i class="fas fa-star mr-3 w-5 text-center"></i> Success Stories
+      </a>
+      <a href="/contact" class="block py-3 text-white hover:text-blue-200 transition flex items-center border-b border-blue-600">
+        <i class="fas fa-envelope mr-3 w-5 text-center"></i> Contact
+      </a>
+      <div class="pt-3 pb-2 space-y-3">
+        <a href="/counseling_signin" class="block py-2 text-white hover:text-blue-200 transition flex items-center justify-center border border-blue-500 rounded-lg">
+          <i class="fas fa-sign-in-alt mr-3"></i> Counselor Login
+        </a>
+        <a href="/user_signup" class="block py-2 bg-white text-blue-800 rounded-lg transition flex items-center justify-center font-medium">
+          <i class="fas fa-user-plus mr-3"></i> Register
+        </a>
+      </div>
+    </div>
+  </header>
+
+  {% block content %}{% endblock %}
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white pt-16">
+    <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8 footer-columns">
+      <!-- About Column -->
+      <div class="md:col-span-2">
+        <div class="flex items-center mb-4 logo-container">
+          <img src="{{ url_for('static', filename='logo.png') }}" alt="SahaaraX Logo" class="h-12 mr-3">
+          <span class="text-2xl font-bold heading-font">
+            Sahaara<span class="text-yellow-300">X</span>
+          </span>
+        </div>
+        <p class="text-gray-400 mb-4">
+          A compassionate platform dedicated to empowering and rehabilitating women and children through comprehensive care, shelter, and emotional healing programs.
+        </p>
+   <div class="flex space-x-4">
+  <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer"
+     class="text-gray-400 hover:text-white text-xl transition">
+    <i class="fab fa-facebook-f"></i>
+  </a>
+  <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer"
+     class="text-gray-400 hover:text-white text-xl transition">
+    <i class="fab fa-twitter"></i>
+  </a>
+  <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer"
+     class="text-gray-400 hover:text-white text-xl transition">
+    <i class="fab fa-instagram"></i>
+  </a>
+  <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer"
+     class="text-gray-400 hover:text-white text-xl transition">
+    <i class="fab fa-linkedin-in"></i>
+  </a>
+  <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer"
+     class="text-gray-400 hover:text-white text-xl transition">
+    <i class="fab fa-youtube"></i>
+  </a>
+</div>
+      </div>
+
+      <!-- Quick Links Column -->
+      <div>
+        <h4 class="text-lg font-semibold mb-4 flex items-center heading-font">
+          <i class="fas fa-link mr-2 text-blue-400"></i> Quick Links
+        </h4>
+        <ul class="space-y-3">
+          <li>
+            <a href="/" class="text-gray-400 hover:text-white transition flex items-center">
+              <i class="fas fa-chevron-right text-xs text-blue-400 mr-2"></i> Home
+            </a>
+          </li>
+          <li>
+            <a href="/about" class="text-gray-400 hover:text-white transition flex items-center">
+              <i class="fas fa-chevron-right text-xs text-blue-400 mr-2"></i> About Us
+            </a>
+          </li>
+          <li>
+            <a href="/services" class="text-gray-400 hover:text-white transition flex items-center">
+              <i class="fas fa-chevron-right text-xs text-blue-400 mr-2"></i> Our Services
+            </a>
+          </li>
+          <li>
+            <a href="/success-stories" class="text-gray-400 hover:text-white transition flex items-center">
+              <i class="fas fa-chevron-right text-xs text-blue-400 mr-2"></i> Success Stories
+            </a>
+          </li>
+          <li>
+            <a href="/contact" class="text-gray-400 hover:text-white transition flex items-center">
+              <i class="fas fa-chevron-right text-xs text-blue-400 mr-2"></i> Contact Us
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Contact Column -->
+      <div>
+        <h4 class="text-lg font-semibold mb-4 flex items-center heading-font">
+          <i class="fas fa-envelope mr-2 text-blue-400"></i> Contact Us
+        </h4>
+        <ul class="space-y-3">
+          <li class="flex items-start">
+            <i class="fas fa-map-marker-alt text-blue-400 mt-1 mr-3"></i>
+            <span> i-11, Hope City, Pakistan </span>
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-phone-alt text-blue-400 mr-3"></i>
+            <span class="text-gray-400">+92-319-4567890</span>
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-envelope text-blue-400 mr-3"></i>
+            <span class="text-gray-400">support@sahaarax.org</span>
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-clock text-blue-400 mr-3"></i>
+            <span class="text-gray-400">24/7 Emergency Support</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Newsletter -->
+<div class="container mx-auto px-4 mt-12">
+  <div class="bg-gray-800 rounded-lg p-6 md:p-8">
+    <div class="md:flex items-center justify-between">
+      <div class="mb-4 md:mb-0">
+        <h4 class="text-xl font-bold mb-2 heading-font text-white">Subscribe to Our Newsletter</h4>
+        <p class="text-gray-400">Stay updated with our latest programs and success stories</p>
+      </div>
+      <form action="{{ url_for('subscribe') }}" method="POST" class="flex flex-col sm:flex-row gap-2 newsletter-form">
+        <input type="email" name="email" placeholder="Your email address"
+               required
+               class="px-4 py-3 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 flex-grow">
+        <button type="submit"
+                class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition">
+          Subscribe
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+    <!-- Copyright -->
+    <div class="border-t border-gray-800 mt-12">
+      <div class="container mx-auto px-4 py-6 flex flex-col md:flex-row justify-between items-center footer-bottom">
+        <p class="text-gray-500 text-sm mb-2 md:mb-0">
+          &copy; 2025 SahaaraX. All rights reserved.
+        </p>
+        <div class="flex space-x-6 footer-links">
+          <a href="/privacy" class="text-gray-500 hover:text-white text-sm transition">Privacy Policy</a>
+          <a href="/terms" class="text-gray-500 hover:text-white text-sm transition">Terms of Service</a>
+          <a href="/sitemap" class="text-gray-500 hover:text-white text-sm transition">Sitemap</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <a href="#" class="fixed bottom-6 right-6 bg-blue-600 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-blue-700 transition transform hover:scale-110" id="back-to-top">
+    <i class="fas fa-arrow-up"></i>
+  </a>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- AOS Animation -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <!-- Custom JS -->
+ <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Initialize AOS animation
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true
+    });
+
+    // Mobile menu toggle
+    const mobileMenuButton = document.querySelector('.mobile-menu-button');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    if (mobileMenuButton && mobileMenu) {
+      mobileMenuButton.addEventListener('click', function() {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    // Back to top button
+    const backToTopButton = document.getElementById('back-to-top');
+    if (backToTopButton) {
+      window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 300) {
+          backToTopButton.classList.add('show');
+        } else {
+          backToTopButton.classList.remove('show');
+        }
+      });
+
+      // Scroll to top on click
+      backToTopButton.addEventListener('click', function() {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+    }
+  });
+</script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>
